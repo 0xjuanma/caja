@@ -645,6 +645,174 @@
         grid-template-columns: 1fr;
       }
     }
+
+    /* ================================================
+       ATMOSPHERE
+       ================================================ */
+    #atmosphere {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .atmosphere__bg {
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-serie2);
+      opacity: 0.6;
+    }
+
+    .atmosphere__inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .atmosphere__content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .atmosphere__eyebrow {
+      font-family: var(--font-subtitle);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-hot-pink);
+    }
+
+    .atmosphere__quote {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-family: var(--font-display);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .atmosphere__body {
+      font-size: 1rem;
+      color: var(--color-white-60);
+      line-height: 1.8;
+      max-width: 44ch;
+    }
+
+    .atmosphere__stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .stat__number {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      letter-spacing: 0.04em;
+      background: var(--gradient-serie3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat__label {
+      font-family: var(--font-subtitle);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-white-60);
+    }
+
+    /* Showreel placeholder */
+    .atmosphere__media {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--color-white-10);
+      background: var(--color-deep-purple);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .atmosphere__media-overlay {
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-serie1);
+      opacity: 0.5;
+    }
+
+    .atmosphere__play {
+      position: relative;
+      z-index: 1;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--color-white-20);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--ease), transform var(--ease);
+    }
+
+    .atmosphere__play:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: scale(1.08);
+    }
+
+    .atmosphere__play svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--color-white);
+      margin-left: 4px;
+    }
+
+    .atmosphere__media-label {
+      position: absolute;
+      bottom: 1.25rem;
+      left: 1.25rem;
+      right: 1.25rem;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-subtitle);
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-white-60);
+    }
+
+    .atmosphere__media-label::before {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--color-white-20);
+    }
+
+    @media (max-width: 900px) {
+      .atmosphere__inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .atmosphere__body { max-width: none; }
+
+      .atmosphere__media { order: -1; }
+    }
   </style>
 </head>
 <body>
@@ -829,7 +997,62 @@
     </section>
 
     <!-- ATMOSPHERE — Phase 4 -->
-    <section id="atmosphere" class="section"></section>
+    <section id="atmosphere" class="section">
+      <div class="atmosphere__bg" aria-hidden="true"></div>
+
+      <div class="atmosphere__inner container">
+        <div class="atmosphere__content">
+          <p class="atmosphere__eyebrow">Nuestra esencia</p>
+
+          <blockquote class="atmosphere__quote t-display">
+            <span class="gradient-text">Crear</span><br>
+            diferente.
+          </blockquote>
+
+          <p class="atmosphere__body">
+            Somos La Caja Studio, una casa creativa donde cada proyecto se
+            construye desde una perspectiva única. Nuestro equipo combina
+            tecnología, arte y estrategia para generar contenido que
+            trasciende lo ordinario.
+          </p>
+
+          <div class="atmosphere__stats">
+            <div class="stat">
+              <span class="stat__number">+50</span>
+              <span class="stat__label">Proyectos</span>
+            </div>
+            <div class="stat">
+              <span class="stat__number">4K</span>
+              <span class="stat__label">Resolución</span>
+            </div>
+            <div class="stat">
+              <span class="stat__number">5</span>
+              <span class="stat__label">Servicios</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Showreel / video placeholder -->
+        <div class="atmosphere__media">
+          <div class="atmosphere__media-overlay" aria-hidden="true"></div>
+
+          <!-- TODO: replace with actual showreel video or hero image -->
+          <!-- <video src="assets/showreel.mp4" autoplay muted loop playsinline></video> -->
+          <!-- <img src="assets/atmosphere-still.jpg" alt="La Caja Studio showreel"> -->
+
+          <button class="atmosphere__play" aria-label="Reproducir showreel">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </button>
+
+          <p class="atmosphere__media-label">
+            <!-- TODO: update label when video is added -->
+            Showreel placeholder
+          </p>
+        </div>
+      </div>
+    </section>
 
     <!-- CONTACT — Phase 5 -->
     <section id="contact" class="section"></section>
