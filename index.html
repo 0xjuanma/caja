@@ -559,6 +559,58 @@
       margin-bottom: 4rem;
     }
 
+    /* ================================================
+       CUSTOM CURSOR
+       ================================================ */
+    .cursor-dot,
+    .cursor-ring {
+      pointer-events: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      border-radius: 50%;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.3s;
+    }
+
+    .cursor-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--color-hot-pink);
+    }
+
+    .cursor-ring {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255, 84, 115, 0.5);
+      transition: width 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+                  height 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+                  opacity 0.3s,
+                  border-color 0.3s;
+    }
+
+    body.cursor-expanded .cursor-ring {
+      width: 72px;
+      height: 72px;
+      border-color: rgba(130, 0, 240, 0.4);
+    }
+
+    @media (hover: none) {
+      .cursor-dot, .cursor-ring { display: none; }
+    }
+
+    /* ================================================
+       SERVICES — Lusion-inspired horizontal list
+       ================================================ */
+    #services {
+      padding-bottom: 0;
+    }
+
+    .services__header {
+      padding-bottom: var(--section-py);
+    }
+
     .services__eyebrow {
       font-family: var(--font-subtitle);
       font-size: 0.75rem;
@@ -585,139 +637,234 @@
       line-height: 1.7;
     }
 
-    .services__grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
+    /* List */
+    .services__list {
+      list-style: none;
+      border-top: 1px solid var(--color-white-10);
     }
 
-    /* Last two cards span to center on the third row */
-    .services__grid .service-card:nth-child(4) {
-      grid-column: 1 / 2;
-    }
-    .services__grid .service-card:nth-child(5) {
-      grid-column: 2 / 3;
-    }
-
-    @media (min-width: 901px) {
-      .services__grid .service-card:nth-child(4) { grid-column: 1 / 2; }
-      .services__grid .service-card:nth-child(5) { grid-column: 2 / 3; }
-    }
-
-    .service-card {
+    .service-row {
       position: relative;
-      background: var(--color-white-06);
-      border: 1px solid var(--color-white-10);
-      border-radius: 12px;
-      padding: 2.5rem 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
+      display: grid;
+      grid-template-columns: 4.5rem 1fr auto;
+      align-items: center;
+      gap: 2rem;
+      padding: 2rem var(--container-px);
+      border-bottom: 1px solid var(--color-white-10);
+      cursor: pointer;
       overflow: hidden;
-      transition: border-color var(--ease), transform var(--ease);
     }
 
-    .service-card::before {
+    /* gradient wipe from left */
+    .service-row::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: var(--gradient-serie1);
-      opacity: 0;
-      transition: opacity var(--ease);
+      background: linear-gradient(90deg, rgba(130,0,240,0.07) 0%, rgba(255,84,115,0.04) 100%);
+      transform: translateX(-100%);
+      transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
-    .service-card:hover {
-      border-color: var(--color-mid-purple);
-      transform: translateY(-4px);
+    .service-row:hover::before,
+    .service-row.is-open::before {
+      transform: translateX(0);
     }
 
-    .service-card:hover::before {
-      opacity: 0.08;
-    }
-
-    /* Gradient top accent line */
-    .service-card::after {
+    /* gradient bottom line draws left to right */
+    .service-row::after {
       content: '';
       position: absolute;
-      top: 0;
+      bottom: -1px;
       left: 0;
-      right: 0;
-      height: 2px;
+      width: 0;
+      height: 1px;
       background: var(--gradient-serie3);
-      opacity: 0;
-      transition: opacity var(--ease);
+      transition: width 0.7s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
-    .service-card:hover::after {
-      opacity: 1;
+    .service-row:hover::after,
+    .service-row.is-open::after {
+      width: 100%;
     }
 
-    .service-card__icon {
+    /* Number */
+    .service-row__number {
+      font-family: var(--font-subtitle);
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      color: var(--color-white-20);
+      transition: color 0.4s;
+      user-select: none;
       position: relative;
       z-index: 1;
-      width: 56px;
-      height: 56px;
-      border-radius: 12px;
-      background: var(--color-white-10);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      /* TODO: replace emoji icons with actual SVG icons when available */
     }
 
-    .service-card__icon-inner {
-      font-size: 1.6rem;
-      line-height: 1;
+    .service-row:hover .service-row__number,
+    .service-row.is-open .service-row__number {
+      color: var(--color-hot-pink);
     }
 
-    .service-card__title {
+    /* Name */
+    .service-row__name {
       position: relative;
       z-index: 1;
       font-family: var(--font-display);
-      font-size: 1.5rem;
-      letter-spacing: 0.04em;
+      font-size: clamp(2rem, 4.5vw, 4.5rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
       text-transform: uppercase;
+      line-height: 1;
+      color: var(--color-white);
+      transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+                  -webkit-text-fill-color 0.4s;
+      -webkit-text-fill-color: var(--color-white);
     }
 
-    .service-card__desc {
-      position: relative;
-      z-index: 1;
-      font-size: 0.9rem;
-      color: var(--color-white-60);
-      line-height: 1.65;
-      flex: 1;
+    .service-row:hover .service-row__name,
+    .service-row.is-open .service-row__name {
+      transform: translateX(12px);
+      background: var(--gradient-serie3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
-    .service-card__tag {
+    /* Meta — right side */
+    .service-row__meta {
       position: relative;
       z-index: 1;
-      align-self: flex-start;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+      min-width: 160px;
+    }
+
+    .service-row__tag {
       font-family: var(--font-subtitle);
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       font-weight: 700;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       padding: 0.3rem 0.75rem;
       border-radius: 20px;
-      background: var(--color-white-10);
+      border: 1px solid var(--color-white-20);
       color: var(--color-white-60);
+      transition: border-color 0.4s, color 0.4s;
+      white-space: nowrap;
     }
 
-    @media (max-width: 900px) {
-      .services__grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .services__grid .service-card:nth-child(4),
-      .services__grid .service-card:nth-child(5) {
-        grid-column: auto;
-      }
+    .service-row:hover .service-row__tag,
+    .service-row.is-open .service-row__tag {
+      border-color: var(--color-hot-pink);
+      color: var(--color-white);
     }
 
-    @media (max-width: 600px) {
-      .services__grid {
-        grid-template-columns: 1fr;
+    /* Expandable description */
+    .service-row__desc {
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--color-white-60);
+      text-align: right;
+      max-width: 28ch;
+      line-height: 1.6;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+                  opacity 0.4s 0.1s;
+    }
+
+    .service-row.is-open .service-row__desc {
+      max-height: 8rem;
+      opacity: 1;
+    }
+
+    /* Arrow indicator */
+    .service-row__arrow {
+      position: relative;
+      z-index: 1;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-white-20);
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), color 0.3s;
+      flex-shrink: 0;
+    }
+
+    .service-row__arrow svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+    }
+
+    .service-row.is-open .service-row__arrow {
+      transform: rotate(45deg);
+      color: var(--color-hot-pink);
+    }
+
+    /* Stagger entrance */
+    .service-row {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+                  transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .service-row.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Override — after visible, hover transitions still work */
+    .service-row.is-visible::before,
+    .service-row.is-visible::after {
+      transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1),
+                  width 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    @media (max-width: 700px) {
+      .service-row {
+        grid-template-columns: 3rem 1fr;
       }
+      .service-row__meta { display: none; }
+    }
+
+    /* ================================================
+       SCROLL REVEAL — shared utility
+       ================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+                  transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Split-word reveal for atmosphere quote */
+    .word-reveal {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: bottom;
+    }
+
+    .word-reveal span {
+      display: inline-block;
+      transform: translateY(110%);
+      transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .word-reveal.is-visible span {
+      transform: translateY(0);
     }
 
     /* ================================================
@@ -1133,10 +1280,10 @@
       <div class="hero__scroll" aria-hidden="true">Scroll</div>
     </section>
 
-    <!-- SERVICES — Phase 3 -->
+    <!-- SERVICES -->
     <section id="services" class="section">
       <div class="container">
-        <header class="services__header">
+        <header class="services__header reveal">
           <p class="services__eyebrow">Lo que hacemos</p>
           <h2 class="services__title t-display">
             <span class="gradient-text">Servicios</span>
@@ -1146,96 +1293,91 @@
             producción audiovisual, fotografía y experiencias digitales.
           </p>
         </header>
-
-        <ul class="services__grid" role="list">
-
-          <!-- 1. Video Production -->
-          <li class="service-card">
-            <div class="service-card__icon" aria-hidden="true">
-              <span class="service-card__icon-inner">
-                <!-- TODO: replace with SVG icon asset -->
-                🎬
-              </span>
-            </div>
-            <h3 class="service-card__title">Producción de Videos</h3>
-            <p class="service-card__desc">
-              Producimos videos con estándares profesionales para redes sociales,
-              campañas publicitarias y contenido corporativo que captura la
-              esencia de tu marca.
-            </p>
-            <span class="service-card__tag">Video &amp; Edición</span>
-          </li>
-
-          <!-- 2. Photography -->
-          <li class="service-card">
-            <div class="service-card__icon" aria-hidden="true">
-              <span class="service-card__icon-inner">
-                <!-- TODO: replace with SVG icon asset -->
-                📷
-              </span>
-            </div>
-            <h3 class="service-card__title">Portafolio Fotográfico</h3>
-            <p class="service-card__desc">
-              Sesiones fotográficas que cuentan historias. Desde shoots de producto
-              hasta fotografía matrimonial y lifestyle con una dirección de arte
-              única.
-            </p>
-            <span class="service-card__tag">Fotografía</span>
-          </li>
-
-          <!-- 3. Content for businesses -->
-          <li class="service-card">
-            <div class="service-card__icon" aria-hidden="true">
-              <span class="service-card__icon-inner">
-                <!-- TODO: replace with SVG icon asset -->
-                📲
-              </span>
-            </div>
-            <h3 class="service-card__title">Contenido para Empresas</h3>
-            <p class="service-card__desc">
-              Estrategia y producción de contenido digital para marcas que
-              quieren destacar. Creamos piezas visuales para redes sociales,
-              campañas y branding.
-            </p>
-            <span class="service-card__tag">Contenido Digital</span>
-          </li>
-
-          <!-- 4. Recording studio -->
-          <li class="service-card">
-            <div class="service-card__icon" aria-hidden="true">
-              <span class="service-card__icon-inner">
-                <!-- TODO: replace with SVG icon asset -->
-                🎙️
-              </span>
-            </div>
-            <h3 class="service-card__title">Studio de Grabación</h3>
-            <p class="service-card__desc">
-              Espacio profesional Open Studio disponible para artistas,
-              creadores y marcas. Equipamiento de alta gama en un ambiente
-              creativo único.
-            </p>
-            <span class="service-card__tag">Open Studio</span>
-          </li>
-
-          <!-- 5. Event coverage -->
-          <li class="service-card">
-            <div class="service-card__icon" aria-hidden="true">
-              <span class="service-card__icon-inner">
-                <!-- TODO: replace with SVG icon asset -->
-                🎥
-              </span>
-            </div>
-            <h3 class="service-card__title">Cobertura de Eventos</h3>
-            <p class="service-card__desc">
-              Grabamos y fotografiamos tu evento en 4K con edición incluida.
-              Bodas, lanzamientos, conciertos y todo lo que merece ser
-              recordado con calidad cinematográfica.
-            </p>
-            <span class="service-card__tag">4K · Edición Gratuita</span>
-          </li>
-
-        </ul>
       </div>
+
+      <ul class="services__list" role="list" id="services-list">
+
+        <li class="service-row" data-index="0" role="button" tabindex="0"
+            aria-expanded="false" aria-label="Producción de Videos">
+          <span class="service-row__number" aria-hidden="true">01</span>
+          <h3 class="service-row__name">Producción de Videos</h3>
+          <div class="service-row__meta">
+            <span class="service-row__tag">Video &amp; Edición</span>
+            <p class="service-row__desc">
+              Videos profesionales para redes, campañas publicitarias
+              y contenido corporativo.
+            </p>
+          </div>
+          <span class="service-row__arrow" aria-hidden="true">
+            <svg viewBox="0 0 16 16"><path d="M3 8h10M8 3l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </li>
+
+        <li class="service-row" data-index="1" role="button" tabindex="0"
+            aria-expanded="false" aria-label="Portafolio Fotográfico">
+          <span class="service-row__number" aria-hidden="true">02</span>
+          <h3 class="service-row__name">Fotografía</h3>
+          <div class="service-row__meta">
+            <span class="service-row__tag">Fotografía</span>
+            <p class="service-row__desc">
+              Sesiones que cuentan historias — producto, matrimonios
+              y lifestyle con dirección de arte única.
+            </p>
+          </div>
+          <span class="service-row__arrow" aria-hidden="true">
+            <svg viewBox="0 0 16 16"><path d="M3 8h10M8 3l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </li>
+
+        <li class="service-row" data-index="2" role="button" tabindex="0"
+            aria-expanded="false" aria-label="Contenido para Empresas">
+          <span class="service-row__number" aria-hidden="true">03</span>
+          <h3 class="service-row__name">Contenido Digital</h3>
+          <div class="service-row__meta">
+            <span class="service-row__tag">Contenido Digital</span>
+            <p class="service-row__desc">
+              Estrategia y producción visual para marcas que
+              quieren destacar en redes y campañas.
+            </p>
+          </div>
+          <span class="service-row__arrow" aria-hidden="true">
+            <svg viewBox="0 0 16 16"><path d="M3 8h10M8 3l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </li>
+
+        <li class="service-row" data-index="3" role="button" tabindex="0"
+            aria-expanded="false" aria-label="Studio de Grabación">
+          <span class="service-row__number" aria-hidden="true">04</span>
+          <h3 class="service-row__name">Open Studio</h3>
+          <div class="service-row__meta">
+            <span class="service-row__tag">Grabación</span>
+            <p class="service-row__desc">
+              Espacio profesional disponible para artistas,
+              creadores y marcas. Equipamiento de alta gama.
+            </p>
+          </div>
+          <span class="service-row__arrow" aria-hidden="true">
+            <svg viewBox="0 0 16 16"><path d="M3 8h10M8 3l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </li>
+
+        <li class="service-row" data-index="4" role="button" tabindex="0"
+            aria-expanded="false" aria-label="Cobertura de Eventos">
+          <span class="service-row__number" aria-hidden="true">05</span>
+          <h3 class="service-row__name">Cobertura 4K</h3>
+          <div class="service-row__meta">
+            <span class="service-row__tag">4K · Edición Gratuita</span>
+            <p class="service-row__desc">
+              Grabamos y fotografiamos tu evento en 4K.
+              Bodas, lanzamientos y conciertos.
+            </p>
+          </div>
+          <span class="service-row__arrow" aria-hidden="true">
+            <svg viewBox="0 0 16 16"><path d="M3 8h10M8 3l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </li>
+
+      </ul>
     </section>
 
     <!-- ATMOSPHERE — Phase 4 -->
@@ -1247,8 +1389,8 @@
           <p class="atmosphere__eyebrow">Nuestra esencia</p>
 
           <blockquote class="atmosphere__quote t-display">
-            <span class="gradient-text">Crear</span><br>
-            diferente.
+            <span class="word-reveal"><span class="gradient-text">Crear</span></span><br>
+            <span class="word-reveal"><span>diferente.</span></span>
           </blockquote>
 
           <p class="atmosphere__body">
@@ -1382,14 +1524,19 @@
     </div>
   </footer>
 
+  <!-- Custom cursor -->
+  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
+
   <script>
-    // Nav scroll effect
+    /* =============================================
+       NAV
+    ============================================= */
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => {
       header.classList.toggle('scrolled', window.scrollY > 20);
     }, { passive: true });
 
-    // Mobile hamburger
     const toggle = document.getElementById('nav-toggle');
     const drawer = document.getElementById('nav-drawer');
     toggle.addEventListener('click', () => {
@@ -1397,8 +1544,6 @@
       toggle.setAttribute('aria-expanded', open);
       drawer.hidden = !open;
     });
-
-    // Close drawer on nav link click
     drawer.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         header.classList.remove('open');
@@ -1407,8 +1552,94 @@
       });
     });
 
-    // Footer year
     document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    /* =============================================
+       CUSTOM CURSOR
+    ============================================= */
+    const dot  = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    let mx = -100, my = -100, rx = -100, ry = -100;
+    let rafCursor;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX;
+      my = e.clientY;
+    });
+
+    (function animateCursor() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      dot.style.transform  = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+      ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+      rafCursor = requestAnimationFrame(animateCursor);
+    })();
+
+    // Expand ring on interactive elements
+    const expandTargets = 'a, button, .service-row, [role="button"]';
+    document.querySelectorAll(expandTargets).forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-expanded'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-expanded'));
+    });
+
+    /* =============================================
+       HERO MOUSE PARALLAX
+    ============================================= */
+    const heroGrid = document.querySelector('.hero__grid');
+    if (heroGrid) {
+      document.addEventListener('mousemove', e => {
+        const x = (e.clientX / window.innerWidth  - 0.5) * 30;
+        const y = (e.clientY / window.innerHeight - 0.5) * 20;
+        heroGrid.style.transform = `translate(${x}px, ${y}px)`;
+      }, { passive: true });
+    }
+
+    /* =============================================
+       SCROLL REVEAL — IntersectionObserver
+    ============================================= */
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal, .word-reveal').forEach(el => revealObs.observe(el));
+
+    /* =============================================
+       SERVICES — stagger rows on scroll
+    ============================================= */
+    const rowObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const delay = parseInt(entry.target.dataset.index || 0) * 80;
+          setTimeout(() => entry.target.classList.add('is-visible'), delay);
+          rowObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.service-row').forEach(row => rowObs.observe(row));
+
+    // Click / keyboard toggle
+    document.querySelectorAll('.service-row').forEach(row => {
+      function toggle() {
+        const isOpen = row.classList.contains('is-open');
+        // close all
+        document.querySelectorAll('.service-row.is-open').forEach(r => {
+          r.classList.remove('is-open');
+          r.setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          row.classList.add('is-open');
+          row.setAttribute('aria-expanded', 'true');
+        }
+      }
+      row.addEventListener('click', toggle);
+      row.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+    });
   </script>
 
 </body>
