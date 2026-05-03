@@ -121,16 +121,434 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
+
+    /* ================================================
+       NAV
+       ================================================ */
+    #header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      transition: background var(--ease), backdrop-filter var(--ease);
+    }
+
+    #header.scrolled {
+      background: rgba(21, 5, 38, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-white-10);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    /* Logo placeholder — swap with actual SVG/PNG when available */
+    .nav__logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav__logo-placeholder {
+      width: 36px;
+      height: 36px;
+      background: var(--gradient-serie3);
+      border-radius: 4px;
+      /* TODO: replace with <img src="assets/logo.svg" alt="La Caja Studio"> */
+    }
+
+    .nav__logo-text {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .nav__link {
+      font-family: var(--font-subtitle);
+      font-size: 0.875rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-white-60);
+      transition: color var(--ease);
+    }
+
+    .nav__link:hover {
+      color: var(--color-white);
+    }
+
+    .nav__cta {
+      font-family: var(--font-subtitle);
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.6rem 1.5rem;
+      border-radius: 4px;
+      background: var(--gradient-serie3);
+      color: var(--color-white);
+      transition: opacity var(--ease), transform var(--ease);
+    }
+
+    .nav__cta:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
+
+    /* Hamburger — mobile only */
+    .nav__hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      width: 28px;
+    }
+
+    .nav__hamburger span {
+      display: block;
+      height: 2px;
+      background: var(--color-white);
+      border-radius: 2px;
+      transition: var(--ease);
+    }
+
+    /* Mobile nav drawer */
+    .nav__drawer {
+      display: none;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 1.5rem var(--container-px) 2rem;
+      background: rgba(21, 5, 38, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid var(--color-white-10);
+    }
+
+    .nav__drawer .nav__link {
+      font-size: 1.1rem;
+      color: var(--color-white-60);
+    }
+
+    .nav__drawer .nav__cta {
+      text-align: center;
+      padding: 0.875rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav__links { display: none; }
+      .nav__hamburger { display: flex; }
+      #header.open .nav__drawer { display: flex; }
+    }
+
+    /* ================================================
+       HERO
+       ================================================ */
+    #hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding-top: 72px; /* nav height */
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-serie3);
+      opacity: 0.15;
+    }
+
+    /* Geometric grid decoration — references isotipo's 10X × 3X construction */
+    .hero__grid {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .hero__grid::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 70vw;
+      height: 70vw;
+      max-width: 800px;
+      max-height: 800px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(130,0,240,0.20) 0%, transparent 70%);
+    }
+
+    .hero__grid::after {
+      content: '';
+      position: absolute;
+      bottom: -10%;
+      left: -5%;
+      width: 50vw;
+      height: 50vw;
+      max-width: 600px;
+      max-height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,84,115,0.15) 0%, transparent 70%);
+    }
+
+    .hero__inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero__content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .hero__eyebrow {
+      font-family: var(--font-subtitle);
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-hot-pink);
+    }
+
+    .hero__title {
+      font-size: clamp(3.5rem, 7vw, 7rem);
+    }
+
+    .hero__tagline {
+      font-family: var(--font-subtitle);
+      font-size: clamp(1rem, 1.5vw, 1.25rem);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      color: var(--color-white-60);
+      max-width: 42ch;
+      line-height: 1.7;
+    }
+
+    .hero__tagline em {
+      color: var(--color-white);
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    .hero__actions {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-subtitle);
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      padding: 0.875rem 2rem;
+      transition: opacity var(--ease), transform var(--ease);
+    }
+
+    .btn:hover {
+      opacity: 0.88;
+      transform: translateY(-2px);
+    }
+
+    .btn--primary {
+      background: var(--gradient-serie3);
+      color: var(--color-white);
+    }
+
+    .btn--outline {
+      border: 1px solid var(--color-white-20);
+      color: var(--color-white-60);
+      background: transparent;
+    }
+
+    .btn--outline:hover {
+      border-color: var(--color-white-60);
+      color: var(--color-white);
+    }
+
+    /* Hero visual — logo / asset placeholder */
+    .hero__visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero__logo-placeholder {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      aspect-ratio: 10 / 3; /* exact brandbook ratio: 10X wide × 3X tall */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      background: var(--color-white-06);
+      border: 1px dashed var(--color-white-20);
+      overflow: hidden;
+    }
+
+    .hero__logo-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-serie1);
+      opacity: 0.35;
+    }
+
+    .hero__logo-label {
+      position: relative;
+      z-index: 1;
+      font-family: var(--font-subtitle);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-white-60);
+      text-align: center;
+    }
+
+    /* Scroll indicator */
+    .hero__scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-subtitle);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-white-20);
+      animation: hero-scroll-bob 2s ease-in-out infinite;
+    }
+
+    .hero__scroll::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--color-white-20), transparent);
+    }
+
+    @keyframes hero-scroll-bob {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    @media (max-width: 900px) {
+      .hero__inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero__tagline { margin: 0 auto; }
+      .hero__actions { justify-content: center; }
+      .hero__visual { display: none; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- NAV — Phase 2 -->
-  <header id="header"></header>
+  <!-- ================================================
+       NAV
+       ================================================ -->
+  <header id="header">
+    <nav class="nav container">
+      <a href="#hero" class="nav__logo" aria-label="La Caja Studio">
+        <!-- TODO: replace placeholder with <img src="assets/logo.svg" alt="La Caja Studio"> -->
+        <div class="nav__logo-placeholder" aria-hidden="true"></div>
+        <span class="nav__logo-text">La Caja Studio</span>
+      </a>
+
+      <ul class="nav__links" role="list">
+        <li><a href="#services" class="nav__link">Servicios</a></li>
+        <li><a href="#atmosphere" class="nav__link">Nosotros</a></li>
+        <li><a href="#contact" class="nav__link">Contacto</a></li>
+      </ul>
+
+      <a href="#contact" class="nav__cta">Trabajemos juntos</a>
+
+      <button class="nav__hamburger" aria-label="Menú" aria-expanded="false" id="nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+
+    <!-- Mobile drawer -->
+    <div class="nav__drawer" id="nav-drawer" hidden>
+      <a href="#services" class="nav__link">Servicios</a>
+      <a href="#atmosphere" class="nav__link">Nosotros</a>
+      <a href="#contact" class="nav__link">Contacto</a>
+      <a href="#contact" class="nav__cta btn btn--primary">Trabajemos juntos</a>
+    </div>
+  </header>
 
   <main>
-    <!-- HERO — Phase 2 -->
-    <section id="hero" class="section"></section>
+    <!-- ================================================
+         HERO
+         ================================================ -->
+    <section id="hero">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="hero__grid" aria-hidden="true"></div>
+
+      <div class="hero__inner container">
+        <div class="hero__content">
+          <p class="hero__eyebrow">Casa Creativa</p>
+
+          <h1 class="hero__title t-display">
+            <span class="gradient-text">La Caja</span><br>
+            Studio
+          </h1>
+
+          <p class="hero__tagline">
+            Para crear diferente, hay que observar desde
+            <em>una perspectiva diferente.</em>
+          </p>
+
+          <div class="hero__actions">
+            <a href="#services" class="btn btn--primary">Ver servicios</a>
+            <a href="#contact" class="btn btn--outline">Contáctanos</a>
+          </div>
+        </div>
+
+        <div class="hero__visual">
+          <!-- TODO: replace with actual logo asset (10X × 3X brandbook ratio) -->
+          <div class="hero__logo-placeholder">
+            <p class="hero__logo-label">Logo · 10X × 3X<br>asset placeholder</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__scroll" aria-hidden="true">Scroll</div>
+    </section>
 
     <!-- SERVICES — Phase 3 -->
     <section id="services" class="section"></section>
@@ -144,6 +562,32 @@
 
   <!-- FOOTER — Phase 5 -->
   <footer id="footer"></footer>
+
+  <script>
+    // Nav scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // Mobile hamburger
+    const toggle = document.getElementById('nav-toggle');
+    const drawer = document.getElementById('nav-drawer');
+    toggle.addEventListener('click', () => {
+      const open = header.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open);
+      drawer.hidden = !open;
+    });
+
+    // Close drawer on nav link click
+    drawer.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        header.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        drawer.hidden = true;
+      });
+    });
+  </script>
 
 </body>
 </html>
