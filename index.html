@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="La Caja Studio — Casa Creativa. Producción de video, fotografía, contenido digital, studio de grabación y cobertura de eventos.">
+  <title>La Caja Studio — Casa Creativa</title>
+
+  <!-- Google Fonts — proxies for brand typography -->
+  <!-- Bebas Neue  → Sequel Sans Heavy Head / BR Sonoma  -->
+  <!-- Barlow Condensed → AlergiaWide                    -->
+  <!-- Inter           → Inter (exact match)             -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ================================================
+       CSS CUSTOM PROPERTIES — La Caja Studio Brand
+       ================================================ */
+    :root {
+      /* Fundamental colors from brandbook */
+      --color-bg:           #150526;
+      --color-deep-purple:  #38133E;
+      --color-mid-purple:   #9A2661;
+      --color-hot-pink:     #FF5473;
+      --color-electric:     #8200F0;
+      --color-black:        #000000;
+      --color-white:        #FFFFFF;
+
+      /* Alpha variants */
+      --color-white-60:     rgba(255, 255, 255, 0.60);
+      --color-white-20:     rgba(255, 255, 255, 0.20);
+      --color-white-10:     rgba(255, 255, 255, 0.10);
+      --color-white-06:     rgba(255, 255, 255, 0.06);
+
+      /* Gradients from brandbook */
+      --gradient-serie1: linear-gradient(135deg, #38133E 0%, #9A2661 50%, #150526 100%);
+      --gradient-serie2: linear-gradient(135deg, #38133E 0%, #150526 50%, #38133E 100%);
+      --gradient-serie3: linear-gradient(135deg, #FF5473 0%, #8200F0 100%);
+
+      /* Typography */
+      --font-display:  'Bebas Neue', sans-serif;
+      --font-subtitle: 'Barlow Condensed', sans-serif;
+      --font-body:     'Inter', sans-serif;
+
+      /* Layout */
+      --section-py:    clamp(5rem, 10vw, 10rem);
+      --container-max: 1280px;
+      --container-px:  clamp(1.5rem, 5vw, 4rem);
+
+      /* Transitions */
+      --ease: 0.3s ease;
+    }
+
+    /* ================================================
+       RESET
+       ================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-white);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img, video { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    button { cursor: pointer; border: none; background: none; font: inherit; color: inherit; }
+
+    /* ================================================
+       LAYOUT UTILITIES
+       ================================================ */
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-px);
+    }
+
+    .section {
+      padding: var(--section-py) 0;
+    }
+
+    /* ================================================
+       TYPOGRAPHY UTILITIES
+       ================================================ */
+    .t-display {
+      font-family: var(--font-display);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 0.95;
+    }
+
+    .t-subtitle {
+      font-family: var(--font-subtitle);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* ================================================
+       GRADIENT UTILITIES
+       ================================================ */
+    .gradient-text {
+      background: var(--gradient-serie3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV — Phase 2 -->
+  <header id="header"></header>
+
+  <main>
+    <!-- HERO — Phase 2 -->
+    <section id="hero" class="section"></section>
+
+    <!-- SERVICES — Phase 3 -->
+    <section id="services" class="section"></section>
+
+    <!-- ATMOSPHERE — Phase 4 -->
+    <section id="atmosphere" class="section"></section>
+
+    <!-- CONTACT — Phase 5 -->
+    <section id="contact" class="section"></section>
+  </main>
+
+  <!-- FOOTER — Phase 5 -->
+  <footer id="footer"></footer>
+
+</body>
+</html>
