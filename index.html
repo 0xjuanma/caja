@@ -813,6 +813,174 @@
 
       .atmosphere__media { order: -1; }
     }
+
+    /* ================================================
+       CONTACT
+       ================================================ */
+    #contact {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact__bg {
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-serie3);
+      opacity: 0.12;
+    }
+
+    .contact__inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 2.5rem;
+    }
+
+    .contact__eyebrow {
+      font-family: var(--font-subtitle);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-hot-pink);
+    }
+
+    .contact__title {
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      max-width: 14ch;
+    }
+
+    .contact__subtitle {
+      font-family: var(--font-subtitle);
+      font-size: clamp(1rem, 1.5vw, 1.2rem);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      color: var(--color-white-60);
+      max-width: 50ch;
+      line-height: 1.7;
+    }
+
+    .contact__channels {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .contact__social {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-subtitle);
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-white-60);
+      padding: 0.75rem 1.5rem;
+      border: 1px solid var(--color-white-20);
+      border-radius: 4px;
+      transition: color var(--ease), border-color var(--ease), transform var(--ease);
+    }
+
+    .contact__social:hover {
+      color: var(--color-white);
+      border-color: var(--color-white-60);
+      transform: translateY(-2px);
+    }
+
+    .contact__social svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    .contact__divider {
+      width: 1px;
+      height: 20px;
+      background: var(--color-white-20);
+    }
+
+    /* ================================================
+       FOOTER
+       ================================================ */
+    #footer {
+      border-top: 1px solid var(--color-white-10);
+    }
+
+    .footer__inner {
+      padding: 2.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer__brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .footer__logo-placeholder {
+      width: 28px;
+      height: 28px;
+      background: var(--gradient-serie3);
+      border-radius: 3px;
+      /* TODO: replace with <img src="assets/logo-icon.svg" alt=""> */
+    }
+
+    .footer__name {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-white-60);
+    }
+
+    .footer__links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .footer__link {
+      font-family: var(--font-subtitle);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-white-20);
+      transition: color var(--ease);
+    }
+
+    .footer__link:hover {
+      color: var(--color-white-60);
+    }
+
+    .footer__copy {
+      font-size: 0.75rem;
+      color: var(--color-white-20);
+      font-family: var(--font-subtitle);
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 640px) {
+      .footer__inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.25rem;
+      }
+
+      .footer__links { flex-wrap: wrap; gap: 1rem; }
+
+      .contact__divider { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -1055,11 +1223,90 @@
     </section>
 
     <!-- CONTACT — Phase 5 -->
-    <section id="contact" class="section"></section>
+    <section id="contact" class="section">
+      <div class="contact__bg" aria-hidden="true"></div>
+
+      <div class="contact__inner container">
+        <p class="contact__eyebrow">Hablemos</p>
+
+        <h2 class="contact__title t-display">
+          <span class="gradient-text">Trabajemos</span> juntos
+        </h2>
+
+        <p class="contact__subtitle">
+          Tienes un proyecto en mente? Estamos listos para convertirlo en
+          algo extraordinario. Escríbenos y creemos algo diferente.
+        </p>
+
+        <a href="mailto:hola@lacajastudio.com" class="btn btn--primary">
+          Envíanos un mensaje
+        </a>
+
+        <div class="contact__channels">
+          <!-- Instagram -->
+          <a
+            href="https://www.instagram.com/lacajastudio"
+            class="contact__social"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Síguenos en Instagram @lacajastudio"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+            @lacajastudio
+          </a>
+
+          <span class="contact__divider" aria-hidden="true"></span>
+
+          <!-- Website -->
+          <a
+            href="https://www.lacajastudio.com"
+            class="contact__social"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visita www.lacajastudio.com"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+            </svg>
+            lacajastudio.com
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- FOOTER — Phase 5 -->
-  <footer id="footer"></footer>
+  <footer id="footer">
+    <div class="footer__inner container">
+      <div class="footer__brand">
+        <!-- TODO: replace placeholder with <img src="assets/logo-icon.svg" alt="La Caja Studio"> -->
+        <div class="footer__logo-placeholder" aria-hidden="true"></div>
+        <span class="footer__name">La Caja Studio</span>
+      </div>
+
+      <nav aria-label="Footer navigation">
+        <ul class="footer__links" role="list">
+          <li><a href="#services" class="footer__link">Servicios</a></li>
+          <li><a href="#atmosphere" class="footer__link">Nosotros</a></li>
+          <li><a href="#contact" class="footer__link">Contacto</a></li>
+          <li>
+            <a
+              href="https://www.instagram.com/lacajastudio"
+              class="footer__link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Instagram</a>
+          </li>
+        </ul>
+      </nav>
+
+      <p class="footer__copy">
+        &copy; <span id="footer-year"></span> La Caja Studio Casa Creativa
+      </p>
+    </div>
+  </footer>
 
   <script>
     // Nav scroll effect
@@ -1085,6 +1332,9 @@
         drawer.hidden = true;
       });
     });
+
+    // Footer year
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
   </script>
 
 </body>
