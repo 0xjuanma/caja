@@ -472,6 +472,179 @@
       .hero__actions { justify-content: center; }
       .hero__visual { display: none; }
     }
+
+    /* ================================================
+       SERVICES
+       ================================================ */
+    #services {
+      position: relative;
+    }
+
+    .services__header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .services__eyebrow {
+      font-family: var(--font-subtitle);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-hot-pink);
+      margin-bottom: 1rem;
+    }
+
+    .services__title {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      margin-bottom: 1.25rem;
+    }
+
+    .services__desc {
+      font-family: var(--font-subtitle);
+      font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      color: var(--color-white-60);
+      max-width: 52ch;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .services__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    /* Last two cards span to center on the third row */
+    .services__grid .service-card:nth-child(4) {
+      grid-column: 1 / 2;
+    }
+    .services__grid .service-card:nth-child(5) {
+      grid-column: 2 / 3;
+    }
+
+    @media (min-width: 901px) {
+      .services__grid .service-card:nth-child(4) { grid-column: 1 / 2; }
+      .services__grid .service-card:nth-child(5) { grid-column: 2 / 3; }
+    }
+
+    .service-card {
+      position: relative;
+      background: var(--color-white-06);
+      border: 1px solid var(--color-white-10);
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      overflow: hidden;
+      transition: border-color var(--ease), transform var(--ease);
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-serie1);
+      opacity: 0;
+      transition: opacity var(--ease);
+    }
+
+    .service-card:hover {
+      border-color: var(--color-mid-purple);
+      transform: translateY(-4px);
+    }
+
+    .service-card:hover::before {
+      opacity: 0.08;
+    }
+
+    /* Gradient top accent line */
+    .service-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gradient-serie3);
+      opacity: 0;
+      transition: opacity var(--ease);
+    }
+
+    .service-card:hover::after {
+      opacity: 1;
+    }
+
+    .service-card__icon {
+      position: relative;
+      z-index: 1;
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background: var(--color-white-10);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* TODO: replace emoji icons with actual SVG icons when available */
+    }
+
+    .service-card__icon-inner {
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    .service-card__title {
+      position: relative;
+      z-index: 1;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .service-card__desc {
+      position: relative;
+      z-index: 1;
+      font-size: 0.9rem;
+      color: var(--color-white-60);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .service-card__tag {
+      position: relative;
+      z-index: 1;
+      align-self: flex-start;
+      font-family: var(--font-subtitle);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+      background: var(--color-white-10);
+      color: var(--color-white-60);
+    }
+
+    @media (max-width: 900px) {
+      .services__grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .services__grid .service-card:nth-child(4),
+      .services__grid .service-card:nth-child(5) {
+        grid-column: auto;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .services__grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -551,7 +724,109 @@
     </section>
 
     <!-- SERVICES — Phase 3 -->
-    <section id="services" class="section"></section>
+    <section id="services" class="section">
+      <div class="container">
+        <header class="services__header">
+          <p class="services__eyebrow">Lo que hacemos</p>
+          <h2 class="services__title t-display">
+            <span class="gradient-text">Servicios</span>
+          </h2>
+          <p class="services__desc">
+            Creamos contenido que conecta marcas con personas a través de
+            producción audiovisual, fotografía y experiencias digitales.
+          </p>
+        </header>
+
+        <ul class="services__grid" role="list">
+
+          <!-- 1. Video Production -->
+          <li class="service-card">
+            <div class="service-card__icon" aria-hidden="true">
+              <span class="service-card__icon-inner">
+                <!-- TODO: replace with SVG icon asset -->
+                🎬
+              </span>
+            </div>
+            <h3 class="service-card__title">Producción de Videos</h3>
+            <p class="service-card__desc">
+              Producimos videos con estándares profesionales para redes sociales,
+              campañas publicitarias y contenido corporativo que captura la
+              esencia de tu marca.
+            </p>
+            <span class="service-card__tag">Video &amp; Edición</span>
+          </li>
+
+          <!-- 2. Photography -->
+          <li class="service-card">
+            <div class="service-card__icon" aria-hidden="true">
+              <span class="service-card__icon-inner">
+                <!-- TODO: replace with SVG icon asset -->
+                📷
+              </span>
+            </div>
+            <h3 class="service-card__title">Portafolio Fotográfico</h3>
+            <p class="service-card__desc">
+              Sesiones fotográficas que cuentan historias. Desde shoots de producto
+              hasta fotografía matrimonial y lifestyle con una dirección de arte
+              única.
+            </p>
+            <span class="service-card__tag">Fotografía</span>
+          </li>
+
+          <!-- 3. Content for businesses -->
+          <li class="service-card">
+            <div class="service-card__icon" aria-hidden="true">
+              <span class="service-card__icon-inner">
+                <!-- TODO: replace with SVG icon asset -->
+                📲
+              </span>
+            </div>
+            <h3 class="service-card__title">Contenido para Empresas</h3>
+            <p class="service-card__desc">
+              Estrategia y producción de contenido digital para marcas que
+              quieren destacar. Creamos piezas visuales para redes sociales,
+              campañas y branding.
+            </p>
+            <span class="service-card__tag">Contenido Digital</span>
+          </li>
+
+          <!-- 4. Recording studio -->
+          <li class="service-card">
+            <div class="service-card__icon" aria-hidden="true">
+              <span class="service-card__icon-inner">
+                <!-- TODO: replace with SVG icon asset -->
+                🎙️
+              </span>
+            </div>
+            <h3 class="service-card__title">Studio de Grabación</h3>
+            <p class="service-card__desc">
+              Espacio profesional Open Studio disponible para artistas,
+              creadores y marcas. Equipamiento de alta gama en un ambiente
+              creativo único.
+            </p>
+            <span class="service-card__tag">Open Studio</span>
+          </li>
+
+          <!-- 5. Event coverage -->
+          <li class="service-card">
+            <div class="service-card__icon" aria-hidden="true">
+              <span class="service-card__icon-inner">
+                <!-- TODO: replace with SVG icon asset -->
+                🎥
+              </span>
+            </div>
+            <h3 class="service-card__title">Cobertura de Eventos</h3>
+            <p class="service-card__desc">
+              Grabamos y fotografiamos tu evento en 4K con edición incluida.
+              Bodas, lanzamientos, conciertos y todo lo que merece ser
+              recordado con calidad cinematográfica.
+            </p>
+            <span class="service-card__tag">4K · Edición Gratuita</span>
+          </li>
+
+        </ul>
+      </div>
+    </section>
 
     <!-- ATMOSPHERE — Phase 4 -->
     <section id="atmosphere" class="section"></section>
